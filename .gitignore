@@ -1,0 +1,15 @@
+# Compiled binary
+calc
+*.out
+*.o
+
+# Backup files
+*~
+*.swp
+
+# Logs and temp
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
