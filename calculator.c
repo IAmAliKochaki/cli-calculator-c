@@ -7,21 +7,6 @@
 #include "math_functions.h"
 #include "calculator.h"
 
-void usage(char *program_name)
-{
-  printf("%sUsage:%s %s first_number operator second_number\n", RED, RESET_COLOR, program_name);
-  printf("Example: calc 3.5 x 2.1%s\n", RESET_COLOR);
-  printf("Operators:\n");
-  printf(" + --> add\n");
-  printf(" - --> subtract\n");
-  printf(" x --> multiply\n");
-  printf(" / --> division\n");
-  printf(" ^ --> power\n");
-  printf(" min --> min\n");
-  printf(" max --> power\n");
-
-  exit(1);
-}
 
 int two_element_op_handler(char *argv[])
 {
@@ -33,7 +18,7 @@ int two_element_op_handler(char *argv[])
   if (argv[2][1] != '\0' && strcmp(argv[2], "min") != 0 && strcmp(argv[2], "max") != 0)
   {
     printf("%s%s%s\n", RED, "Invalid operation!", RESET_COLOR);
-    usage(argv[0]);
+    return 1;
   }
 
   double (*operation)(double, double) = NULL;
@@ -59,7 +44,7 @@ int two_element_op_handler(char *argv[])
       break;
     default:
       printf("%s%s%s\n", RED, "Invalid operation!", RESET_COLOR);
-      usage(argv[0]);
+      return 1;
     }
   }
   else
@@ -71,11 +56,47 @@ int two_element_op_handler(char *argv[])
     else
     {
       printf("%s%s%s\n", RED, "Invalid operation!", RESET_COLOR);
-      usage(argv[0]);
+      return 1;
     }
   }
 
   double result = operation(first_number, second_number);
+  if (!isnan(result))
+  {
+    printf("%s%s%s%g\n", GREEN, "Result: ", RESET_COLOR, result);
+    return 0;
+  }
+  else
+    return 1;
+}
+
+int one_element_op_handler(char *argv[])
+{
+  double number;
+  if (!parser_double(argv[2], &number))
+    return 1;
+
+  double (*operation)(double) = NULL;
+
+  char *op = argv[1];
+  to_lower_string(op);
+  if (strcmp(op, "sin") == 0)
+    operation = SIN;
+  else if (strcmp(op, "cos") == 0)
+    operation = COS;
+  else if (strcmp(op, "tan") == 0)
+    operation = TAN;
+  else if (strcmp(op, "cot") == 0)
+    operation = COT;
+  else if (strcmp(op, "fact") == 0)
+    operation = FACTORIAL;
+  else
+  {
+    printf("%s%s%s\n", RED, "Invalid operation!", RESET_COLOR);
+    return 1;
+  }
+
+  double result = operation(number);
   if (!isnan(result))
   {
     printf("%s%s%s%g\n", GREEN, "Result: ", RESET_COLOR, result);
@@ -112,4 +133,31 @@ void to_lower_string(char *str)
   for (int i = 0; str[i] != '\0'; i++)
     if (str[i] >= 'A' && str[i] <= 'Z')
       str[i] = tolower((unsigned char)str[i]);
+}
+
+void usage(char *program_name)
+{
+  printf("%s%s%s\n", GREEN, "Usage:", RESET_COLOR);
+  printf("\t%s\n", "1:first_number operator second_number");
+  printf("\t%s\n", "2:operator number");
+  
+  printf("%s%s%s\n", GREEN, "Example:", RESET_COLOR);
+  printf("\t%s\n", "calc 3.5 x 2.1");
+  printf("\t%s\n", "calc fact 5");
+  
+  printf("%s%s%s\n", GREEN, "Operators:", RESET_COLOR);
+  printf("\t%s\n", "+ --> add");
+  printf("\t%s\n", "- --> subtract");
+  printf("\t%s\n", "x --> multiply");
+  printf("\t%s\n", "/ --> division");
+  printf("\t%s\n", "^ --> power");
+  printf("\t%s\n", "min --> min");
+  printf("\t%s\n", "max --> max");
+  printf("\t%s\n", "sin --> sin");
+  printf("\t%s\n", "cos --> cos");
+  printf("\t%s\n", "tan --> tan");
+  printf("\t%s\n", "cot --> cot");
+  printf("\t%s\n", "fact --> factorial");
+
+  printf("%s%s%s\n", GREEN, "--help/-h --> usage", RESET_COLOR);
 }

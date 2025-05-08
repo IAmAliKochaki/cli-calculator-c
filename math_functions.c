@@ -45,3 +45,41 @@ double MAX(double a, double b)
 {
   return a > b ? a : b;
 }
+
+double SIN(double a)
+{
+  return sin(a);
+}
+double COS(double a)
+{
+  return cos(a);
+}
+double TAN(double a)
+{
+  if (cos(a) == 0) {
+    printf("%stan(%.4f) is undefined because cos(%.4f) is zero%s\n", RED, a, a, RESET_COLOR);
+    return NAN;
+  }
+  return tan(a);
+}
+double COT(double a)
+{
+  
+  if (sin(a) == 0) {
+    printf("%stan(%.4f) is undefined because sin(%.4f) is zero%s\n", RED, a, a, RESET_COLOR);
+    return NAN;
+  }
+  return 1 / tan(a);
+}
+double FACTORIAL(double a)
+{
+  if (a < 0) {
+    printf("%sFactorial number must be >= 0%s\n", RED, RESET_COLOR);
+    return NAN;
+  }
+  int int_input = (int)a;
+  int result = 1;
+  for (int i = 2; i <= int_input; i++)
+    result *= i;
+  return result;
+}
