@@ -7,5 +7,4 @@ int main(int argc, char *argv[])
         return two_element_op_handler(argv);
     printf("%s%s%s\n", RED, "Invalid arguments!", RESET_COLOR);
     usage(argv[0]);
-    return 1;
 }

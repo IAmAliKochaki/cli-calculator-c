@@ -6,5 +6,7 @@ double SUB(double a, double b);
 double MUL(double a, double b);
 double DIV(double a, double b);
 double POW(double a, double b);
+double MIN(double a, double b);
+double MAX(double a, double b);
 
 #endif // MATH_FUNCTIONS_H
