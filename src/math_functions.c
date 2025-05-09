@@ -50,10 +50,12 @@ double SIN(double a)
 {
   return sin(a);
 }
+
 double COS(double a)
 {
   return cos(a);
 }
+
 double TAN(double a)
 {
   if (cos(a) == 0) {
@@ -62,6 +64,7 @@ double TAN(double a)
   }
   return tan(a);
 }
+
 double COT(double a)
 {
   
@@ -71,6 +74,7 @@ double COT(double a)
   }
   return 1 / tan(a);
 }
+
 double FACTORIAL(double a)
 {
   if (a < 0) {
