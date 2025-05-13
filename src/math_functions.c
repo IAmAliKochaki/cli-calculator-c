@@ -69,7 +69,7 @@ double COT(double a)
 {
   
   if (sin(a) == 0) {
-    printf("%stan(%.4f) is undefined because sin(%.4f) is zero%s\n", RED, a, a, RESET_COLOR);
+    printf("%scot(%.4f) is undefined because sin(%.4f) is zero%s\n", RED, a, a, RESET_COLOR);
     return NAN;
   }
   return 1 / tan(a);
